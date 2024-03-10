@@ -27,16 +27,43 @@ function render(variables = {}) {
   // here we ask the logical questions to make decisions on how to build the html
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
+
+  // ESTO SERIA EL CODIGO PARA EL h1 (lineas 42-45) pero es un codigo mas largo:
+  // 1.- Primero defino dos nuevas variables, despues de la variable cover (linea 29):
+  // let blankName = variables.name == null ? "Your name" : variables.name;
+  // let blanklastName = variables.lastName == null ? "Your lastname" : variables.lastName;
+  // 2.- Luego esto iría en el h1 en la linea 41 (reemplazaría lo que esta ahora):
+  // <h1> ${blankName} ${blanklastName}</h1>;  
+
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
+          <h1> 
+            ${variables.name == null ? "Your name" : variables.name} 
+            ${variables.lastName == null ? "Your lastname" : variables.lastName}
+          </h1>
+          <h2>
+            ${variables.role == null ? "Your role" : variables.role}
+          </h2>
+          <h3>
+            ${variables.city == null ? "Your city" : variables.city + ", "}  
+            ${
+              variables.country == null ? "Your country" : variables.country
+            }          
+          </h3>
+          
+          <h3>${variables.twitter == null ? "" : variables.twitter}</h3>
+          <h3>${variables.github == null ? "" : variables.github}</h3>
+          <h3>${variables.linkedin == null ? "" : variables.linkedin}</h3>
+          <h3>${variables.instagram == null ? "" : variables.instagram}</h3>
+          <ul class = "${
+            variables.socialMediaPosition == "position-right"
+              ? "position-right"
+              : "position-left"
+          }">
             <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
             <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
             <li><a href="https://linkedin.com/school/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
